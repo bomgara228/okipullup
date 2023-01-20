@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .weather {
+            width: 30vw;
+            background-color: blue;
+            color: white;
+            font-size: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 2px 2px 15px grey;
+        }
+        .weather * {
+            text-align: center;
+        }
+        .weather_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .weather_containe img {
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="weather">
+        <h2>Погода в городе: <span class="city"></span></h2>
+        <p>Температура: <span class="temp"></span>C</p>
+        <p>Влажность: <span class="humid"></span>%</p>
+        <p>Ветер: <span class="wind"></span>м/с</p>
+        <p class="weather_container"> Погода: <img id="wicon" src="" alt="weather icon"></p>
+    </div>
+
+    <script>
+let apiKey = "69eea7577f7bdf59547ca01ebad31937";
+        // Город погода которого нужна
+        let city = "Minsk";
+        // Формируем url для GET запроса
+        let url = `http://api.openweathermap.org/data/2.5/weather?id=15&q=${city}&lang=ru&units=metric&appid=${apiKey}`;
+
+        let resCity = document.querySelector('.city');
+        let resTemp = document.querySelector('.temp');
+        let resHumidity = document.querySelector('.humid');
+        let resWind = document.querySelector('.wind');
+        let resIcon = document.querySelector('#wicon');
+
+        fetch(url)
+        .then(respons => {
+            return respons.json()
+        })
+        .then (function(data){
+        console.log(data);
+        showWeather(data);
+    });
+        
+        function showWeather(res) {
+            resCity.innerText = res.name;
+            resHumidity.innerText = res.main.humidity;
+            resTemp.innerText = res.main.temp;
+            resWind.innerText = res.wind.speed;
+
+            let iconCode = res.weather[0].icon;
+            let iconUrl =  `http://api.openweathermap.org/img/w/${iconCode}.png`
+
+            resIcon.src = iconUrl;
+        }
+    </script>
+</body>
+</html>

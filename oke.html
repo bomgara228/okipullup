@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="pon.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <script>
+        let igaga = '123';
+        try{
+            if (igaga.length < 5) {
+              throw 'Пароль менее 5 символов';  
+            }
+            doSomeone();
+        } catch(error){
+            if (error instanceof TypeError){
+                console.log('TypeError');
+            }
+            if (error instanceof ReferenceError){
+                console.log('ReferenceError');
+            }
+            console.log('catch');
+        } finally {
+            console.log('finally');
+        }
+        
+        console.log('ok');
+    </script>
+</body>
+</html>
